@@ -1,0 +1,17 @@
+body {
+    background-image: url("http://www.uidownload.com/files/630/1019/660/twitter-pattern.jpg");
+    font-family: 'Sofia';
+
+}
+div {
+    font-family: 'Sofia';
+    font-size: 200%;
+}
+h1 {
+    font-family: 'Sofia';
+    font-size: 200%;
+}
+p, form {
+    font-family: 'Sofia';
+    font-size: 22px;
+}
