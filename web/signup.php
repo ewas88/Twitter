@@ -4,6 +4,8 @@ include('header.php');
 
 <form class="w3-container w3-display-middle" style="width:600px;" action="#" method="POST">
 
+    <h2 class="w3-black" style="font-family:Sofia; font-size: 200%"><b>< SIGN UP FORM</b></h2>
+
     <label class="w3-text-black"><b>NICK</b></label>
     <input class="w3-input w3-border" type="text" name="nick" required>
 
@@ -34,42 +36,24 @@ include('header.php');
             $password2 = $_POST['password2'];
 
             if ($password !== $password2) {
-                echo "<p> Please input the same password twice and try again. </p>";
+                echo "<p class='w3-pink'> Please input the same password twice and try again. </p>";
                 die();
-
             }
 
-            $query = "SELECT id FROM `user` WHERE email = $email";
-            $result = $conn->query($query);
-            echo gettype($result);
-            var_dump($result);
-//            if (empty($result)) {
-//                echo "puste";
-//            } else {
-//                echo "nie puste";
-//            }
-//            if ($result) {
-//                $user = new User();
-//                $user->setNick($nick);
-//                $user->setEmail($email);
-//                $user->setPassword($password);
-//
-//                $user->save($conn);
-//                echo "lala";
-//            } else {
-//                echo "Sorry but user with that email is already registered";
-//                die();
-//
-//                $user = new User();
-//                $user->setNick($nick);
-//                $user->setEmail($email);
-//                $user->setPassword($password);
-//
-//                $user->save($conn);
-//                echo "lala";
-//            }
+            if (User::findByEmail($conn, $email)) {
+                echo "<p class='w3-pink'> That email is already assigned to another user - please try another one. </p>";
+                die();
+            }
+
+            $user = new User();
+            $user->setNick($nick);
+            $user->setEmail($email);
+            $user->setPassword($password);
+
+            $user->save($conn);
+
+            echo "<meta http-equiv=\"refresh\" content=\"0;url='/Twitter/web/login.php'\">";
         }
     }
-
     ?>
 </form>

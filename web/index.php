@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 
-
+session_start();
 if (!isset($_SESSION['user'])) {
     ?>
     <div class="container w3-display-middle">
@@ -10,5 +10,5 @@ if (!isset($_SESSION['user'])) {
     </div>
     <?php
 } else {
-
+echo "lala";
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 class User
 {
     private $id;
@@ -19,6 +18,9 @@ class User
         $this->password = "";
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @return mixed
@@ -77,7 +79,8 @@ class User
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function save(mysqli $conn) {
+    public function save(mysqli $conn)
+    {
 
         if ($this->id === -1) {
 
@@ -94,9 +97,49 @@ class User
         }
     }
 
-    public function setHash($hash) {
+    public function setHash($hash)
+    {
 
         $this->password = $hash;
+    }
+
+    public static function findByEmail (mysqli $conn, $email)
+    {
+        $query = "SELECT id FROM `user` WHERE email = '" . $email . "'";
+        $result = $conn->query($query);
+        if ($result->num_rows == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    static public function loadUserByEmail(mysqli $conn, $email) {
+
+        $email = $conn->real_escape_string($email);
+
+        $sql = "SELECT * FROM `user` WHERE email='$email'";
+
+        $result = $conn->query($sql);
+
+        if (!$result) {
+            die('Query error: ' . $conn->error);
+        }
+        if ($result->num_rows === 1) {
+
+            $userArray = $result->fetch_assoc();
+
+            $user = new User();
+
+            $user->setId($userArray['id']);
+            $user->setEmail($userArray['email']);
+            $user->setNick($userArray['nick']);
+            $user->setHash($userArray['password']);
+
+            return $user;
+        } else {
+            return false;
+        }
     }
 
 }
