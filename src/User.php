@@ -92,7 +92,7 @@ class User
             if ($result) {
                 $this->id = $conn->insert_id;
             } else {
-                die('Error user not saved: ' . $conn->errno);
+                die('Error user not saved: ' . $conn->error);
             }
         }
     }
@@ -139,6 +139,17 @@ class User
             return $user;
         } else {
             return false;
+        }
+    }
+
+    public static function findByNick (mysqli $conn, $nick)
+    {
+        $query = "SELECT id FROM `user` WHERE nick = '" . $nick . "'";
+        $result = $conn->query($query);
+        if ($result->num_rows == 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 

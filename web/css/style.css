@@ -15,3 +15,11 @@ p, form {
     font-family: 'Sofia';
     font-size: 22px;
 }
+
+.after-box {
+    clear: right;
+}
+
+.after {
+    clear: left;
+}
