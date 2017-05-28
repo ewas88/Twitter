@@ -5,7 +5,8 @@ body {
 }
 div {
     font-family: 'Sofia';
-    font-size: 200%;
+    /*font-size: 200%;*/
+
 }
 h1 {
     font-family: 'Sofia';
@@ -22,4 +23,32 @@ p, form {
 
 .after {
     clear: left;
+}
+
+#left {
+    width:450px;
+    margin: 5px;
+    float: left;
+}
+#center {
+    margin: 5px 0;
+    width: calc(100% - 1000px);
+    float: left;
+}
+
+#middle {
+    max-width: 500px;
+    margin: auto;
+    margin-top: 5px;
+}
+
+#right {
+    margin: 5px;
+    /*width: 420px;*/
+    float: right;
+    font-size: 22px;
+}
+
+.big-font {
+    font-size: 200%;
 }

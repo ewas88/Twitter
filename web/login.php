@@ -1,8 +1,7 @@
-
-
 <?php
 session_start();
 include('header.php');
+
 ?>
 
 <form class="w3-container w3-display-middle" style="width:600px;" action="#" method="POST">

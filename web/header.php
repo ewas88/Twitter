@@ -8,6 +8,8 @@
 </head>
 <body>
 
-<div class="w3-container w3-white">
+<div class="w3-container w3-white big-font">
     <a class="w3-right" style="font-family:Sofia; font-size: 250%" href="index.php"><b>twitter</b></a>
 </div>
+
+
