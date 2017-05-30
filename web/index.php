@@ -20,7 +20,7 @@ if (!isset($_SESSION['user'])) {
             <button class="w3-btn w3-black">add tweet</button>
         </form>
     </div>
-    
+
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tweet'])) {
 
@@ -34,25 +34,19 @@ if (!isset($_SESSION['user'])) {
 
         $tweet->save($conn);
     }
-    ?>
-    <div id="center" style="font-size: 120%">
-        <?php
-        $tweets = Tweet::loadAllTweets($conn);
 
-        foreach ($tweets as $tweet) {
-            ?>
-            <div class="w3-panel w3-white w3-round-xlarge">
-                <?php
-                echo "<a>" . date("F j, Y, g:i a", strtotime($tweet['post_date'])) . "</a><br>";
-                echo '<a href="userSite.php?id='.$tweet['user'] .'"><u>'. " @" .$tweet['nick'] .'</u></a><br>';
-                echo '<a href="tweetSite.php?id='.$tweet['id'] .'"><b>'. $tweet['post'] .'</b></a><br>';
-                $comments = Tweet::loadCommentsByTweetID($conn, $tweet['id']);
-                echo '<a class="fa fa-comment">'. $comments->num_rows .'</a><br>';
-                ?>
-            </div>
-            <?php
-        }
-        ?>
+    echo '<div id="center" style="font-size: 120%">';
+    $tweets = Tweet::loadAllTweets($conn);
+    foreach ($tweets as $tweet) {
+        echo '<div class="w3-panel w3-white w3-round-xlarge">';
+        echo "<a>" . date("F j, Y, g:i a", strtotime($tweet['post_date'])) . "</a><br>";
+        echo '<a href="userSite.php?id=' . $tweet['user'] . '"><u>' . " @" . $tweet['nick'] . '</u></a><br>';
+        echo '<a href="tweetSite.php?id=' . $tweet['id'] . '"><b>' . $tweet['post'] . '</b></a><br>';
+        $comments = Tweet::loadCommentsByTweetID($conn, $tweet['id']);
+        echo '<a class="fa fa-comment">' . $comments->num_rows . '</a><br>';
+        echo "</div>";
+    }
+    ?>
     </div>
     <div id="right">
         <div>
