@@ -17,11 +17,10 @@ if (!isset($_SESSION['user'])) {
         <form action="#" method="POST">
             <br><br>
             <input class="w3-input w3-border" type="text" maxlength="140" name="tweet" required>
-
             <button class="w3-btn w3-black">add tweet</button>
         </form>
     </div>
-    <br>
+    
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tweet'])) {
 
@@ -46,7 +45,9 @@ if (!isset($_SESSION['user'])) {
                 <?php
                 echo "<a>" . date("F j, Y, g:i a", strtotime($tweet['post_date'])) . "</a><br>";
                 echo '<a href="userSite.php?id='.$tweet['user'] .'"><u>'. " @" .$tweet['nick'] .'</u></a><br>';
-                echo '<a href="tweetSite.php?id='.$tweet['id'] .'"><b>'. $tweet['post'] .'</b></a>';
+                echo '<a href="tweetSite.php?id='.$tweet['id'] .'"><b>'. $tweet['post'] .'</b></a><br>';
+                $comments = Tweet::loadCommentsByTweetID($conn, $tweet['id']);
+                echo '<a class="fa fa-comment">'. $comments->num_rows .'</a><br>';
                 ?>
             </div>
             <?php

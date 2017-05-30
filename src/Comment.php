@@ -81,6 +81,21 @@ class Comment
         $this->userID = $userID;
     }
 
+    public function save(mysqli $conn)
+    {
 
+        $sql = sprintf(
+            "INSERT INTO `comment` (content, comment_date, user_id, tweet_id) 
+                        VALUES ('%s','%s','%s','%s')", $this->content, $this->commentDate, $this->userID, $this->tweetID);
+
+        $result = $conn->query($sql);
+
+        if ($result) {
+            $this->id = $conn->insert_id;
+        } else {
+            die('Error user not saved: ' . $conn->error);
+        }
+
+    }
 
 }

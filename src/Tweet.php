@@ -133,4 +133,17 @@ class Tweet
 
     }
 
+    public static function loadTweetsByUserID(mysqli $conn, $userID)
+    {
+        $sql = "SELECT * FROM `tweet` WHERE user_id='$userID' ORDER BY post_date DESC";
+
+        $result = $conn->query($sql);
+
+        if (!$result) {
+            die('Query error: ' . $conn->error);
+        }
+
+        return $result;
+    }
+
 }

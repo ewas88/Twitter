@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('header.php');
+require_once '../src/Connection.php';
+require_once '../src/User.php';
 
 ?>
 
@@ -18,11 +20,6 @@ include('header.php');
     <button class="w3-btn w3-black">Log in</button>
 
     <?php
-    require_once '../src/Connection.php';
-    require_once '../src/User.php';
-
-
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['email']) && isset($_POST['password'])) {
 

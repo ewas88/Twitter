@@ -1,5 +1,7 @@
 <?php
 include('header.php');
+require_once '../src/Connection.php';
+require_once '../src/User.php';
 ?>
 
 <form class="w3-container w3-display-middle" style="width:600px;" action="#" method="POST">
@@ -22,13 +24,9 @@ include('header.php');
 
 
     <?php
-    require_once '../src/Connection.php';
-    require_once '../src/User.php';
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['nick']) && isset($_POST['email']) && isset($_POST['password'])
-            && isset($_POST['password2'])
-        ) {
+            && isset($_POST['password2'])) {
 
             $nick = $_POST['nick'];
             $email = $_POST['email'];

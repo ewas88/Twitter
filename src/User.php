@@ -18,7 +18,8 @@ class User
         $this->password = "";
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -103,7 +104,7 @@ class User
         $this->password = $hash;
     }
 
-    public static function findByEmail (mysqli $conn, $email)
+    public static function findByEmail(mysqli $conn, $email)
     {
         $query = "SELECT id FROM `user` WHERE email = '" . $email . "'";
         $result = $conn->query($query);
@@ -114,7 +115,8 @@ class User
         }
     }
 
-    static public function loadUserByEmail(mysqli $conn, $email) {
+    static public function loadUserByEmail(mysqli $conn, $email)
+    {
 
         $email = $conn->real_escape_string($email);
 
@@ -142,7 +144,7 @@ class User
         }
     }
 
-    public static function findByNick (mysqli $conn, $nick)
+    public static function findByNick(mysqli $conn, $nick)
     {
         $query = "SELECT id FROM `user` WHERE nick = '" . $nick . "'";
         $result = $conn->query($query);
@@ -153,4 +155,45 @@ class User
         }
     }
 
+    public static function loadUserByID(mysqli $conn, $id)
+    {
+        $query = "SELECT * FROM `user` WHERE id = '" . $id . "'";
+        $result = $conn->query($query);
+        if ($result == true && $result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $loadedUser = new User();
+            $loadedUser->id = $row['id'];
+            $loadedUser->nick = $row['nick'];
+            $loadedUser->password = $row['password'];
+            $loadedUser->email = $row['email'];
+            return $loadedUser;
+        }
+        return null;
+    }
+
+    public function deleteUserFromDB(mysqli $conn)
+    {
+        if ($this->id != -1) {
+            $sql = "DELETE FROM `user` WHERE `id`=$this->id";
+            $result = $conn->query($sql);
+            if ($result == true) {
+                $this->id = -1;
+                return true;
+            } else {
+                die('Changes not saved ' . $conn->error);
+            }
+        }
+        return true;
+    }
+
+    public function saveToDB(mysqli $conn)
+    {
+        $sql = "UPDATE `user` SET password='$this->password' WHERE id=$this->id";
+        $result = $conn->query($sql);
+        if ($result == true) {
+            return true;
+        } else {
+            die('Changes not saved ' . $conn->error);
+        }
+    }
 }
