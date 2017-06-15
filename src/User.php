@@ -106,7 +106,9 @@ class User
 
     public static function findByEmail(mysqli $conn, $email)
     {
-        $query = "SELECT id FROM `user` WHERE email = '" . $email . "'";
+        $query = sprintf(
+            "SELECT id FROM `user` WHERE email = '%s'",
+        $email);
         $result = $conn->query($query);
         if ($result->num_rows == 0) {
             return false;
@@ -115,12 +117,14 @@ class User
         }
     }
 
-    static public function loadUserByEmail(mysqli $conn, $email)
+    public static function loadUserByEmail(mysqli $conn, $email)
     {
 
         $email = $conn->real_escape_string($email);
 
-        $sql = "SELECT * FROM `user` WHERE email='$email'";
+        $sql = sprintf(
+            "SELECT * FROM `user` WHERE email='%s'",
+        $email);
 
         $result = $conn->query($sql);
 
@@ -146,7 +150,11 @@ class User
 
     public static function findByNick(mysqli $conn, $nick)
     {
-        $query = "SELECT id FROM `user` WHERE nick = '" . $nick . "'";
+        $nick = $conn->real_escape_string($nick);
+
+        $query = sprintf(
+            "SELECT id FROM `user` WHERE nick = '%s'",
+        $nick);
         $result = $conn->query($query);
         if ($result->num_rows == 0) {
             return false;
@@ -157,7 +165,9 @@ class User
 
     public static function loadUserByID(mysqli $conn, $id)
     {
-        $query = "SELECT * FROM `user` WHERE id = '" . $id . "'";
+        $query = sprintf(
+            "SELECT * FROM `user` WHERE id = '%d'",
+        $id);
         $result = $conn->query($query);
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();

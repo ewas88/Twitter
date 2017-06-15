@@ -29,7 +29,7 @@ $user = User::loadUserByID($conn, $_SESSION['user']);
         </div>
         <form action="#" method="POST">
             <label class="w3-text-black"><b>old password</b></label>
-            <input class="w3-input w3-border" type="password" name="old_password" required>
+            <input class="w3-input w3-border" type="password" name="oldPassword" required>
             <label class="w3-text-black"><b>new password</b></label>
             <input class="w3-input w3-border" type="password" name="password" required>
             <label class="w3-text-black"><b>confirm new password</b></label>
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     echo "<meta http-equiv=\"refresh\" content=\"0;url='/Twitter/web/index.php'\">";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['old_password']) && isset($_POST['password'])
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['oldPassword']) && isset($_POST['password'])
     && isset($_POST['password2'])
 ) {
-    $oldPassword = $_POST['old_password'];
-    $password = $_POST['password'];
-    $password2 = $_POST['password2'];
+    $oldPassword = $conn->real_escape_string($_POST['oldPassword']);
+    $password = $conn->real_escape_string($_POST['password']);
+    $password2 = $conn->real_escape_string($_POST['password2']);
 
     if (password_verify($oldPassword, $user->getPassword()) == FALSE) {
         echo "<p class='w3-pink w3-round' id='middle'> Incorrect old password. </p>";

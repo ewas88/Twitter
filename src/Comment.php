@@ -86,7 +86,7 @@ class Comment
 
         $sql = sprintf(
             "INSERT INTO `comment` (content, comment_date, user_id, tweet_id) 
-                        VALUES ('%s','%s','%s','%s')", $this->content, $this->commentDate, $this->userID, $this->tweetID);
+                        VALUES ('%s','%s','%d','%d')", $this->content, $this->commentDate, $this->userID, $this->tweetID);
 
         $result = $conn->query($sql);
 

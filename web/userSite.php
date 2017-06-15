@@ -20,7 +20,8 @@ $user = User::loadUserByID($conn, $_GET['id']);
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
-    $content = $_POST['message'];
+
+    $content = $conn->real_escape_string($_POST['message']);
     $date = date("Y-m-d G:i:s");
 
     $message = new Message();

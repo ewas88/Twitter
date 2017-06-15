@@ -23,8 +23,8 @@ require_once '../src/User.php';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['email']) && isset($_POST['password'])) {
 
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $email = $conn->real_escape_string($_POST['email']);
+            $password = $conn->real_escape_string($_POST['password']);
 
             $user = User::loadUserByEmail($conn, $email);
 

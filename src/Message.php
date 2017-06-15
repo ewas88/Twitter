@@ -102,7 +102,7 @@ class Message
     {
         $sql = sprintf(
             "INSERT INTO `message` (message, message_date, recipient_id, sender_id, `read`) 
-                        VALUES ('%s','%s','%s','%s','%s')",
+                        VALUES ('%s','%s','%d','%d','%s')",
             $this->message, $this->messageDate, $this->recipientID, $this->senderID, $this->read);
 
         $result = $conn->query($sql);
@@ -114,9 +114,11 @@ class Message
         }
     }
 
-    static public function loadSentMassages(mysqli $conn, $id)
+    public static function loadSentMassages(mysqli $conn, $id)
     {
-        $query = "SELECT * FROM `message` WHERE sender_id ='" . $id . "' ORDER BY `message_date` DESC";
+        $query = sprintf(
+            "SELECT * FROM `message` WHERE sender_id ='%d' ORDER BY `message_date` DESC",
+        $id);
         $ret = [];
         $result = $conn->query($query);
         if ($result == true) {
@@ -135,9 +137,11 @@ class Message
         return $ret;
     }
 
-    static public function loadReceivedMassages(mysqli $conn, $id)
+    public static function loadReceivedMassages(mysqli $conn, $id)
     {
-        $query = "SELECT * FROM `message` WHERE recipient_id ='" . $id . "' ORDER BY `message_date` DESC";
+        $query = sprintf(
+            "SELECT * FROM `message` WHERE recipient_id ='%d' ORDER BY `message_date` DESC",
+        $id);
         $ret = [];
         $result = $conn->query($query);
         if ($result == true) {
@@ -156,9 +160,11 @@ class Message
         return $ret;
     }
 
-    static public function loadMessageByID(mysqli $conn, $id)
+    public static function loadMessageByID(mysqli $conn, $id)
     {
-        $query = "SELECT * FROM `message` WHERE id='" . $id . "'";
+        $query = sprintf(
+            "SELECT * FROM `message` WHERE id='%d'",
+        $id);
         $result = $conn->query($query);
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();

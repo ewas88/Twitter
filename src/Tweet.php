@@ -86,7 +86,7 @@ class Tweet
     public function save(mysqli $conn)
     {
         $sql = sprintf(
-            "INSERT INTO `tweet` (post, post_date, user_id) VALUES ('%s','%s','%s')",
+            "INSERT INTO `tweet` (post, post_date, user_id) VALUES ('%s','%s','%d')",
             $this->post, $this->postDate, $this->userID);
 
         $result = $conn->query($sql);
@@ -102,7 +102,9 @@ class Tweet
     public static function loadUserByTweetID(mysqli $conn, $tweetID)
     {
 
-        $sql = "SELECT * FROM `user` JOIN `tweet` ON user.id=tweet.user_id WHERE tweet.id='$tweetID'";
+        $sql = sprintf(
+            "SELECT * FROM `user` JOIN `tweet` ON user.id=tweet.user_id WHERE tweet.id='%d'",
+        $tweetID);
 
         $result = $conn->query($sql);
 
@@ -120,8 +122,10 @@ class Tweet
     public static function loadCommentsByTweetID(mysqli $conn, $tweetID)
     {
 
-        $sql = "SELECT * FROM `comment` JOIN `user` ON comment.user_id=user.id 
-                WHERE comment.tweet_id='$tweetID' ORDER BY comment.comment_date DESC";
+        $sql = sprintf(
+            "SELECT * FROM `comment` JOIN `user` ON comment.user_id=user.id 
+                WHERE comment.tweet_id='%d' ORDER BY comment.comment_date DESC",
+            $tweetID);
 
         $result = $conn->query($sql);
 
@@ -135,7 +139,9 @@ class Tweet
 
     public static function loadTweetsByUserID(mysqli $conn, $userID)
     {
-        $sql = "SELECT * FROM `tweet` WHERE user_id='$userID' ORDER BY post_date DESC";
+        $sql = sprintf(
+            "SELECT * FROM `tweet` WHERE user_id='%d' ORDER BY post_date DESC",
+        $userID);
 
         $result = $conn->query($sql);
 

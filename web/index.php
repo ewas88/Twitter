@@ -24,7 +24,7 @@ if (!isset($_SESSION['user'])) {
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tweet'])) {
 
-        $post = $_POST['tweet'];
+        $post = $conn->real_escape_string($_POST['tweet']);
         $date = date("Y-m-d G:i:s");
 
         $tweet = new Tweet();

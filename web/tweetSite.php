@@ -16,7 +16,7 @@ require_once '../src/Comment.php';
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 
-    $content = $_POST['comment'];
+    $content = $conn->real_escape_string($_POST['comment']);
     $date = date("Y-m-d G:i:s");
 
     $comment = new Comment();

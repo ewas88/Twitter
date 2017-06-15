@@ -28,11 +28,15 @@ require_once '../src/User.php';
         if (isset($_POST['nick']) && isset($_POST['email']) && isset($_POST['password'])
             && isset($_POST['password2'])) {
 
-            $nick = $_POST['nick'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $password2 = $_POST['password2'];
+            $nick = $conn->real_escape_string($_POST['nick']);
+            $email = $conn->real_escape_string($_POST['email']);
+            $password = $conn->real_escape_string($_POST['password']);
+            $password2 = $conn->real_escape_string($_POST['password2']);
 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "<p class='w3-pink'> Please input the correct email address. </p>";
+                die();
+            }
             if ($password !== $password2) {
                 echo "<p class='w3-pink'> Please input the same password twice and try again. </p>";
                 die();
